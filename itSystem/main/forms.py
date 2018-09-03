@@ -1,6 +1,11 @@
 from django import forms
+from main.models import ContactModel
+from django.core import validators
 
-class ContactForm(forms.Form):
-    name = forms.CharField()
-    email = forms.EmailField()
-    text = forms.CharField(widget=forms.Textarea)
+class ContactForm(forms.ModelForm):
+    botcatcher = forms.CharField(required = False,
+                                widget=forms.HiddenInput,
+                                validators=[validators.MaxLengthValidator(0)])
+    class Meta:
+        model = ContactModel
+        fields = ('name', 'email', 'text')

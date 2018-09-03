@@ -16,6 +16,13 @@
         <input type="submit" class="btn green" name="" value="Submit">
     </form>
 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    {% if success %}
+    <script>
+      M.toast({html: 'Your message has been sent!'})
+    </script>
+    {% endif %}
   </div>
 </body>
 </html>

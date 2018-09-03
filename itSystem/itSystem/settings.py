@@ -27,7 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+THROTTLE_ZONES = {
+    'default': {
+        'VARY':'throttle.zones.RemoteIP',
+        'NUM_BUCKETS':2,  # Number of buckets worth of history to keep. Must be at least 2
+        'BUCKET_INTERVAL':15 * 60, # Period of time to enforce limits.
+        'BUCKET_CAPACITY':10,  # Maximum number of requests allowed within BUCKET_INTERVAL
+    },
+}
 
+# Where to store request counts.
+THROTTLE_BACKEND = 'throttle.backends.cache.CacheBackend'
+
+# Force throttling when DEBUG=True
+THROTTLE_ENABLED = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'realizations',
+    'blog',
 ]
 
 MIDDLEWARE = [

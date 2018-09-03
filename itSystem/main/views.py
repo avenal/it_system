@@ -1,14 +1,22 @@
 from django.shortcuts import render
-from . import forms
+from main.forms import ContactForm
+from throttle.decorators import throttle
+
 # Create your views here.
 
 def index(request):
-    form = forms.ContactForm()
 
-    if request.method == 'POST':
-        form = forms.FormName(request.POST)
-
+    form = ContactForm()
+    success = False
+    if request.method == "POST":
+        form = ContactForm(request.POST)
         if form.is_valid():
-            print("Validation Success!")
-            print(form.cleaned_data['name'])
-    return render(request,'main/index.html', {'form': form})
+            send_contact(request, form)
+            form = ContactForm()
+            success = True
+    return render(request,'main/index.html', {'form': form, 'success':success})
+
+@throttle(zone='default')
+def send_contact(request, forms):
+    forms.save(commit=True)
+    return render(request,'main/index.html')
