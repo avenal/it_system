@@ -1,6 +1,6 @@
 from django.urls import path
-from realizations import views
+from realizations.views import RealizationsView
 
 urlpatterns = [
-    path('',views.realizations, name='realizations'),
+    path('',RealizationsView.as_view(), name='realizations'),
 ]
