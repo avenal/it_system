@@ -6,7 +6,7 @@ class Realization(models.Model):
     image = models.URLField(max_length=256)
     link = models.URLField(max_length=256)
     description = models.TextField(max_length=1024)
-    slug = models.SlugField(unique=True, editable=False)
+    slug = models.SlugField(unique=False, editable=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
