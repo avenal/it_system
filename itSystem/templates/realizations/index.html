@@ -19,8 +19,8 @@
   <tbody>
     {% for realization in realizations %}
       <tr>
-        <a href="{% url 'details' pk=realization.pk slug=realization.slug  %}">klik</a>
-        <h1><a href="{% url 'details' pk=realization.pk slug=realization.slug  %}"><td>{{ realization.title }}</td></a></h1>
+        <a href="{% url 'details-realization' pk=realization.pk slug=realization.slug  %}">klik</a>
+        <h1><a href="{% url 'details-realization' pk=realization.pk slug=realization.slug  %}"><td>{{ realization.title }}</td></a></h1>
         <td>{{ realization.description }}</td>
       </tr>
     {% endfor %}
