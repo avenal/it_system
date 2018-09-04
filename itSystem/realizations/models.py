@@ -11,3 +11,6 @@ class Realization(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Realization, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Nazwa: %s /id:%s' % (self.title, self.pk)
