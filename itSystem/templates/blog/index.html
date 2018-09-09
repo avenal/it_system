@@ -1,50 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <h1>jestem z bloga</h1>
-  <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h1 class="center-align">Blog</h1>
+  <div class="row">
     {% for entry in blog_entries %}
-      <tr>
-
-        <a href="{% url 'details' pk=entry.pk slug=entry.slug  %}">{{ entry.title }}</a>
-
-      </tr>
+        <div class="row hide-on-small-only">
+          <div class="col s12 valign-wrapper z-depth-3">
+            <div class="col s3"><img class="responsive-img" src="{{entry.image}}" alt=""></div>
+            <div class="col s5">
+              <h4>{{entry.title}}</h4>
+              <p class="truncate">{{entry.short_description}}</p>
+            </div>
+            <div class="col s4">
+              <a class="green btn waves-effect waves-light btn-small" href="{%url 'blog:details-blog' pk=entry.pk slug=entry.slug %}"><i class="material-icons right">more_horiz</i>Czytaj więcej</a>
+            </div>
+          </div>
+        </div>
+        <div class="row center-align hide-on-med-and-up">
+          <div class="col s8 offset-s2 z-depth-3">
+            <img class="responsive-img" src="{{entry.image}}" alt="">
+            <h5>{{entry.title}}</h5>
+            <p class="truncate">{{entry.short_description}}</p>
+            <a class="green btn waves-effect waves-light btn-small" href="{%url 'blog:details-blog' pk=entry.pk slug=entry.slug %}"><i class="material-icons right">more_horiz</i>Czytaj więcej</a>
+          </div>
+        </div>
     {% endfor %}
-    {% if is_paginated %}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+  </div>
+
+  {% if is_paginated %}
+    <ul class="pagination center-align">
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="active green"><span>{{ i }} <span class="sr-only"></span></span></li>
         {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
         {% endif %}
-        {% for i in paginator.page_range %}
-          {% if page_obj.number == i %}
-            <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
-    {% endif %}
-  </tbody>
-</table>
-</body>
-</html>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
+
+{% endblock %}

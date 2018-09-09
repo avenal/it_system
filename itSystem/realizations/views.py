@@ -9,7 +9,7 @@ class RealizationsView(ListView):
     model = Realization
     template_name = 'realizations/index.html'
     context_object_name = 'realizations'
-    paginate_by = 10
+    paginate_by = 6
     queryset = Realization.objects.all().order_by('-pk')
 
 class DetailedView(DetailView):

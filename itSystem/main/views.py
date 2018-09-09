@@ -41,3 +41,22 @@ class MainView(View):
             form = self.form_class(initial = self.initial)
             success = True
         return render(request, self.template_name, {'form': form, 'success':success})
+
+class ContactView(View):
+    form_class = ContactForm
+    initial = {'key':'value'}
+    template_name = 'main/contact.html'
+    success = False
+    def get(self, request, *args, **kwargs):
+        success = False
+        form = self.form_class(initial = self.initial)
+        return render(request, self.template_name,{'form':form})
+
+    @throttle(zone='default')
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            form = self.form_class(initial = self.initial)
+            success = True
+        return render(request, self.template_name, {'form': form, 'success':success})

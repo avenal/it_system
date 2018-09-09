@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <!-- Kontakt -->
+      <div id="contact" class="section">
+        <div class="col s12 center-align">
+          <h2>Kontakt</h2>
+      </div>
+        <div class="col s12 l6 offset-l3 center-align">
+          <form method="POST">
+            {{form.as_p}}
+             {% csrf_token %}
+            <input type="submit" class="btn green" name="" value="Wyślij">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

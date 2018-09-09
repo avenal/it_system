@@ -1,52 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <h1>jestem z realizacji</h1>
-  <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+{% extends 'base.html'%}
+{% block content %}
+<div class="container">
+  <div class="row">
     {% for realization in realizations %}
-      <tr>
-        <a href="{% url 'details-realization' pk=realization.pk slug=realization.slug  %}">klik</a>
-        <h1><a href="{% url 'details-realization' pk=realization.pk slug=realization.slug  %}"><td>{{ realization.title }}</td></a></h1>
-        <td>{{ realization.description }}</td>
-      </tr>
+    <div class="col s12 l6">
+    <div class="card medium">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{{realization.main_image}}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{realization.title}}<i class="material-icons right">more_vert</i></span>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{realization.title}}<i class="material-icons right">close</i></span>
+      <p>{{realization.short_description}}</p>
+    </div>
+    <div class="card-action">
+      <p><a href="{% url 'realizations:details-realization' pk=realization.pk slug=realization.slug  %}">Zobacz więcej</a></p>
+    </div>
+  </div>
+  </div>
     {% endfor %}
-  </tbody>
-</table>
-
-{% if is_paginated %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
+  </div>
+  {% if is_paginated %}
+    <ul class="pagination center-align">
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <li class="disabled"><span>&laquo;</span></li>
       {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-</body>
-</html>
+      {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="active green"><span>{{ i }} <span class="sr-only"></span></span></li>
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

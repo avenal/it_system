@@ -13,3 +13,8 @@ class ContactForm(forms.ModelForm):
         widgets = {
          'text': forms.Textarea(attrs={'cols':80,'rows':20}),
         }
+        labels = {
+        'name': "Imię",
+        'email': "E-Mail",
+        'text':"Wiadomość",
+        }

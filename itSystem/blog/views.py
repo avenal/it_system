@@ -10,7 +10,7 @@ class BlogView(ListView):
     model = BlogEntry
     template_name = 'blog/index.html'
     context_object_name = 'blog_entries'
-    paginate_by = 2
+    paginate_by = 5
     queryset = BlogEntry.objects.all().order_by('-pk')
 
 class DetailedView(DetailView):

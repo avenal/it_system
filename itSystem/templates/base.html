@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <title>Home Page</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper green">
+        <a href="{% url 'main:index' %}" class="brand-logo"><img src="{% static "main/logo.png" %}" alt=""></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'main:index' %}">Strona główna</a></li>
+          <li><a href="{% url 'realizations:realizations' %}">Realizacje</a></li>
+          <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a class="sidenav-close" href="{% url 'main:index' %}">Strona główna</a></li>
+    <li><a class="sidenav-close" href="{% url 'realizations:realizations' %}">Realizacje</a></li>
+    <li><a class="sidenav-close" href="{% url 'blog:blog' %}">Blog</a></li>
+  </ul>
+
+
+    {% block content %}
+
+    {% endblock %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+  });
+    </script>
+
+  <!-- Footer -->
+  <footer class="page-footer green">
+           <div class="container">
+             <div class="row">
+              <div class="col s6 center-align">
+                <h6>Przydatne linki</h6>
+                <a class="white-text" href="#"><p>Polityka prywatności</p></a>
+                <a href="{% url 'main:contact' %}" class="white-text"><p>Kontakt</p></a>
+              </div>
+              <div class="col s6 center-align">
+                <h6>Śledź nas</h6>
+                <a class="grey-text text-lighten-3" href="#!"><i class="fab fa-facebook-f"></i></a>
+              </div>
+             </div>
+           </div>
+           <div class="footer-copyright">
+             <div class="container">
+             <p class="center-align">Copyright © IT System 2018</p>
+             </div>
+           </div>
+         </footer>
+</body>
+</html>

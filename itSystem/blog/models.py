@@ -4,7 +4,8 @@ from django.utils.text import slugify
 class BlogEntry(models.Model):
     title = models.CharField(max_length=64)
     image = models.URLField(max_length=256)
-    description = models.TextField(max_length=4096)
+    short_description = models.TextField(max_length=128)
+    description = models.TextField(max_length=2048)
     slug = models.SlugField(unique=False, editable=False)
 
     def save(self, *args, **kwargs):
