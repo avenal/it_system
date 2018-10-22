@@ -1,3 +1,3 @@
 # it_system
 
-it-sys.net.pl
+www.it-sys.net.pl
